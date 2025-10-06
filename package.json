@@ -1,0 +1,25 @@
+{
+  "name": "tulip-holding-website",
+  "version": "1.0.0",
+  "description": "De officiële website van Tulip Holding - Specialisten in Light Industrial Real Estate.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benkogerrie/tulip-holding-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/benkogerrie/tulip-holding-website/issues"
+  },
+  "homepage": "https://github.com/benkogerrie/tulip-holding-website#readme",
+  "devDependencies": {
+    "website-scraper": "^5.3.1",
+    "website-scraper-cli": "^0.0.1"
+  }
+}
