@@ -2544,7 +2544,12 @@
 
                     <!-- TODO: Insert form action URL from static form service (e.g. Formspree) -->
 
-                    <form class="contact-form" method="post" action="#">
+                    <form class="contact-form" method="POST" action="https://api.web3forms.com/submit" id="contact-form">
+                        
+                        <input type="hidden" name="access_key" value="ba0595f8-7006-41ee-b10f-3e73654f5eca">
+                        <input type="hidden" name="subject" value="Contact Request from Tulip Holding Website">
+                        <input type="hidden" name="from_name" value="Tulip Holding Contact Form">
+                        <input type="checkbox" name="botcheck" id="" style="display: none;">
 
                         <div class="form-grid">
 
@@ -2620,7 +2625,9 @@
 
                         <div class="form-group" style="margin-top: 10px;">
 
-                            <button type="submit" class="btn">Odeslat zprávu</button>
+                            <button type="submit" class="btn" id="submit-btn">Odeslat zprávu</button>
+                            
+                            <div id="form-result" style="margin-top: 12px; font-size: 0.9rem; display: none;"></div>
 
                             <div class="fine-print">
 
@@ -2693,6 +2700,80 @@
             }
 
         }
+
+
+
+        // Web3Forms submission handler
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submit-btn');
+
+            const resultDiv = document.getElementById('form-result');
+
+            const formData = new FormData(this);
+
+            
+
+            submitBtn.disabled = true;
+
+            submitBtn.textContent = 'Odesílání...';
+
+            resultDiv.style.display = 'none';
+
+            
+
+            fetch('https://api.web3forms.com/submit', {
+
+                method: 'POST',
+
+                body: formData
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data.success) {
+
+                    resultDiv.style.display = 'block';
+
+                    resultDiv.style.color = '#10b981';
+
+                    resultDiv.textContent = 'Děkujeme! Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme.';
+
+                    document.getElementById('contact-form').reset();
+
+                } else {
+
+                    throw new Error(data.message || 'Něco se pokazilo');
+
+                }
+
+            })
+
+            .catch(error => {
+
+                resultDiv.style.display = 'block';
+
+                resultDiv.style.color = '#ef4444';
+
+                resultDiv.textContent = 'Omlouváme se, při odesílání vaší zprávy došlo k chybě. Zkuste to prosím znovu nebo nás kontaktujte přímo.';
+
+            })
+
+            .finally(() => {
+
+                submitBtn.disabled = false;
+
+                submitBtn.textContent = 'Odeslat zprávu';
+
+            });
+
+        });
 
     </script>
 
