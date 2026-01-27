@@ -44,6 +44,23 @@ IČ: 27751155
 
 Deze website is gebouwd met HTML, CSS en JavaScript en wordt gehost via GitHub Pages.
 
+## Project structuur
+
+**Root (oude website):**
+- `index.html` - Oude website homepage (Light Industrial Real Estate)
+- `images/` - Oude website afbeeldingen
+
+**Nieuwe website (`/new`):**
+- `/new/index.html` - Nieuwe website homepage (EN) - Asset Management & Investment
+- `/new/en/` - Engelse versie
+- `/new/de/` - Duitse versie  
+- `/new/cz/` - Tsjechische versie
+- `/new/images/` - Nieuwe website afbeeldingen
+
+**URLs:**
+- Oude website: `[domain]` (root)
+- Nieuwe website: `[domain]/new`
+
 ## Licentie
 
 © Tulip Holding - Alle rechten voorbehouden

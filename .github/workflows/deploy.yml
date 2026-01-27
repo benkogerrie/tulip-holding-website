@@ -28,16 +28,28 @@ jobs:
       - name: Prepare deployment
         run: |
           mkdir -p dist
+          # Copy old website to root
           cp index.html dist/
-          cp favicon.svg dist/ 2>/dev/null || true
-          cp CNAME dist/ 2>/dev/null || true
           cp -r images dist/ 2>/dev/null || true
-          cp -r en dist/ 2>/dev/null || true
-          cp -r de dist/ 2>/dev/null || true
-          cp -r cz dist/ 2>/dev/null || true
-          cp -r oud dist/ 2>/dev/null || true
+          # Copy new website to /new
+          cp -r new dist/ 2>/dev/null || true
+          # Copy other files
+          cp CNAME dist/ 2>/dev/null || true
           cp .nojekyll dist/ 2>/dev/null || true
-          cp _headers dist/ 2>/dev/null || true
+          cp oud/_headers dist/_headers 2>/dev/null || true
+          # Debug: verify structure
+          echo "=== Checking root files ==="
+          test -f dist/index.html && echo "✓ Root index.html exists" || echo "✗ Root index.html missing"
+          echo ""
+          echo "=== Checking new website ==="
+          test -f dist/new/index.html && echo "✓ New website index.html exists" || echo "✗ New website index.html missing"
+          test -d dist/new/en && echo "✓ New website /en exists" || echo "✗ New website /en missing"
+          test -d dist/new/de && echo "✓ New website /de exists" || echo "✗ New website /de missing"
+          test -d dist/new/cz && echo "✓ New website /cz exists" || echo "✗ New website /cz missing"
+          test -d dist/new/images && echo "✓ New website images exists" || echo "✗ New website images missing"
+          echo ""
+          echo "=== Checking old website images ==="
+          test -d dist/images && echo "✓ Old website images exists" || echo "✗ Old website images missing"
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
